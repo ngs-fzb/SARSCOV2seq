@@ -1,0 +1,124 @@
+#! /bin/bash
+#
+#
+####################################################
+#Global Settings
+####################################################
+
+#####Path to Ref directory
+ref_dir="~/SARSCOV2seq/Ref/"
+script_dir="~/SARSCOV2seq/Scripts/"
+
+date=$(date '+%Y-%m-%d')
+threads="8"
+
+##### ivar consensus thresholds
+freq="0.9"
+qual="20"
+depth="10"
+
+##### 29903 bp coronavirus 2 isolate Wuhan-Hu-1	MN908947.3	18-MAR-2020
+reference="coronavirus2_wuhan-hu-1_MN908947.3_2020-04-29"
+reference_fasta="${ref_dir}${reference}.fasta"
+reference_genes="${ref_dir}${reference}_genes.txt"
+
+
+##### Settings for MTBseq
+### do not do quality recalibration, resistance and category annotation, set to "none"
+variant_list="none"
+resistance_variants_info="none"
+resistance_regions_info="none"
+gene_categories_info="none"
+
+
+##### Amplicon target regions
+###ARTIC sars-cov-2 amplicon panel
+#target_list="${ref_dir}targets_list_ARTIC-amplicon_sars-cov-2_2020-06-18.txt"
+###BEDfiles for primerregions
+primer_bed="${ref_dir}artic_nCoV2019_400bp_primers.bed"
+
+##################################################
+# Necessary folder structure
+##################################################
+
+mkdir Fastq
+mkdir Consensus
+mkdir Called_TrueCodon
+
+##################################################
+# sars-cov-2 pipeline
+##################################################
+
+eval "$(conda shell.bash hook)"
+conda activate
+conda activate mtbseq
+### BWA mapping
+MTBseq -step TBbwa --ref $reference --threads $threads
+
+### refine (merged) bam files
+MTBseq -step TBrefine --ref $reference --threads $threads
+conda deactivate
+rmdir Groups
+rmdir Joint
+rmdir Amend
+rmdir Classification
+cd GATK_Bam
+mv *gatk.bam ../ 
+mv *gatk.bai ../
+cd ..
+
+conda activate ivar
+###trim primer, but will also trim sliding window 4 below Q20, remove reads shorter 30bp and unmapped.
+bash "${script_dir}starter_ivar_trimming.v03.sh" $primer_bed $threads
+ 
+### consensus
+bash "${script_dir}starter_ivar_consensus.v04.sh" $freq $qual $depth
+ 
+conda deactivate
+
+### calculate N-content of consensus *.fa
+bash "${script_dir}starter_fasta_n_content.sh"
+
+###activate conda environment
+conda activate pangolin
+
+##calculate sequence identity *.fa
+bash "${script_dir}starter_sequence_identity.sh"
+
+###get variant type with pangolin
+cat *.fa > ""$date"_all.fasta"
+pangolin --update
+pangolin --outfile ""$date"_lineage_report.tsv" -t $threads ""$date"_all.fasta"
+
+conda deactivate
+
+mv *gatk.bam   ./GATK_Bam/
+mv *gatk.bai   ./GATK_Bam/
+
+conda activate mtbseq
+
+MTBseq -step TBpile --ref $reference --threads $threads
+MTBseq -step TBlist --ref $reference --threads $threads
+MTBseq -step TBvariants --ref $reference --threads $threads
+MTBseq -step TBstats --ref $reference --threads $threads
+
+conda deactivate
+conda deactivate
+
+### combines multiline variants into a single line, recalculates the AA exchange if in a gene.
+cd Called
+mv *_position_variants_*.tab ../ 
+cd ..
+perl "${ref_dir}"mtbseq_double_mut.v02.pl *_position_variants_*.tab
+mv *_position_variants_*.tab ./Called/ 
+
+##################################################
+# Move files
+##################################################
+ mv *.fastq.gz ./Fastq/
+ mv *variants*true* ./Called_TrueCodon
+ mv *.fa ./Consensus/
+ mv *.qual.txt ./Consensus/
+###################################################
+exit
+

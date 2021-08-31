@@ -1,0 +1,11 @@
+# ID	name	start	stop	frame	product	description	function	cogcats	status_region	status_function	type	region_number	function_number
+gene-orf1ab	orf1ab	266	21555	-	orf1ab polyprotein	-	-	-	-	-	CDS	-	-
+gene-S	S	21563	25384	-	surface glycoprotein	-	-	-	-	-	CDS	-	-
+gene-ORF3a	ORF3a	25393	26220	-	ORF3a protein	-	-	-	-	-	CDS	-	-
+gene-E	E	26245	26472	-	envelope protein	-	-	-	-	-	CDS	-	-
+gene-M	M	26523	27191	-	membrane glycoprotein	-	-	-	-	-	CDS	-	-
+gene-ORF6	ORF6	27202	27387	-	ORF6 protein	-	-	-	-	-	CDS	-	-
+gene-ORF7a	ORF7a	27394	27759	-	ORF7a protein	-	-	-	-	-	CDS	-	-
+gene-ORF8	ORF8	27894	28259	-	ORF8 protein	-	-	-	-	-	CDS	-	-
+gene-N	N	28274	29533	-	nucleocapsid phosphoprotein	-	-	-	-	-	CDS	-	-
+gene-ORF10	ORF10	29558	29674	-	ORF10 protein	-	-	-	-	-	CDS	-	-
