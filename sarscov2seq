@@ -6,8 +6,8 @@
 ####################################################
 
 #####Path to Ref directory
-ref_dir="~/SARSCOV2seq/Ref/"
-script_dir="~/SARSCOV2seq/Scripts/"
+ref_dir="$HOME/SARSCOV2seq/Ref/"
+script_dir="$HOME/SARSCOV2seq/Scripts/"
 
 date=$(date '+%Y-%m-%d')
 threads="8"
@@ -83,7 +83,7 @@ bash "${script_dir}starter_fasta_n_content.sh"
 conda activate pangolin
 
 ##calculate sequence identity *.fa
-bash "${script_dir}starter_sequence_identity.sh"
+bash "${script_dir}starter_sequence_identity.sh" $reference_fasta
 
 ###get variant type with pangolin
 cat *.fa > ""$date"_all.fasta"

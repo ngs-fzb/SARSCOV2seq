@@ -2,8 +2,9 @@
 #© 2021 cutpatel
 
 date=$(date '+%Y-%m-%d')
-reference="coronavirus2_wuhan-hu-1_MN908947.3_2020-04-29"
-reference_fasta="$HOME/Data/Ref/"$reference".fasta"
+#reference="coronavirus2_wuhan-hu-1_MN908947.3_2020-04-29"
+#reference_fasta="$HOME/Data/Ref/"$reference".fasta"
+reference_fasta=$1
 
 echo SampleID$'\t'%Identity >""$date"_identity.tsv"
 for fasta in *.fa; do
