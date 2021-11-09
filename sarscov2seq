@@ -109,7 +109,7 @@ conda deactivate
 cd Called
 mv *_position_variants_*.tab ../ 
 cd ..
-perl "${ref_dir}"mtbseq_double_mut.v02.pl *_position_variants_*.tab
+perl "${script_dir}"mtbseq_double_mut.v02.pl *_position_variants_*.tab
 mv *_position_variants_*.tab ./Called/ 
 
 ##################################################
