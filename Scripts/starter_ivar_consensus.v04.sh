@@ -16,15 +16,21 @@
                                         # 0.5 | Strict or bases that make up atleast 50% of the depth at a position
                                         # 0.9 | Strict or bases that make up atleast 90% of the depth at a position
                                           # 1 | Identical or bases that make up 100% of the depth at a position. Will have highest ambiguities
+           # -c    Minimum insertion frequency threshold(0 - 1) to call consensus. (Default: 0.8)
+                 #Frequently used thresholds | Description
+                 #---------------------------|------------
+                                         # 0 | Allow insertion if it appears even once
+                                       # 0.2 | Insertions with at least 20% of the depth at a position
+                                       # 0.5 | Insertion with at least 50% of the depth at a position
+                                       # 0.9 | Insertions with at least 90% of the depth at a position
+                                         # 1 | Insertion with 100% of the depth at a position. Will have highest ambiguities
+
            # -m    Minimum depth to call consensus(Default: 10)
            # -k    If '-k' flag is added, regions with depth less than minimum depth will not be added to the consensus sequence. Using '-k' will override any option specified using -n 
            # -n    (N/-) Character to print in regions with less than minimum coverage(Default: N)
 # Output Options   Description
            # -p    (Required) Prefix for the output fasta file and quality fileivar consensus
 
-#$1="0.9"
-#$2="20"
-#$3="10"
 freq=$1
 qual=$2
 depth=$3

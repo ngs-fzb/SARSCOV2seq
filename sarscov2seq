@@ -33,9 +33,22 @@ gene_categories_info="none"
 
 ##### Amplicon target regions
 ###ARTIC sars-cov-2 amplicon panel
+#ARTIC sars-cov-2 amplicon panel v3
 #target_list="${ref_dir}targets_list_ARTIC-amplicon_sars-cov-2_2020-06-18.txt"
+#ARTIC sars-cov-2 amplicon panel v4.1
+#target_list="${ref_dir}targets_list_ARTIC-amplicon_sars-cov-2_4-1_2022-02-21.txt"
+
 ###BEDfiles for primerregions
-primer_bed="${ref_dir}artic_nCoV2019_400bp_primers.bed"
+###artic v3
+#primer_bed="${ref_dir}artic_nCoV2019_400bp_primers.bed"
+###artic v4.1
+primer_bed="${ref_dir}artic_sars-cov-2_4-1_400bp_primers.bed"
+
+###primer pair information for ivar trim -f to remove reads spanning 2 amplicons
+###artic v3
+#primer_pairs="${ref_dir}artic_nCoV2019_400bp_primers_ivar_informationfile.txt"
+###artic v4.1
+primer_pairs="${ref_dir}artic_sars-cov-2_v4-1_400bp_primers_ivar_informationfile.txt"
 
 ##################################################
 # Necessary folder structure
@@ -69,7 +82,7 @@ cd ..
 
 conda activate ivar
 ###trim primer, but will also trim sliding window 4 below Q20, remove reads shorter 30bp and unmapped.
-bash "${script_dir}starter_ivar_trimming.v03.sh" $primer_bed $threads
+bash "${script_dir}starter_ivar_trimming.v04.sh" $primer_bed $threads $primer_pairs
  
 ### consensus
 bash "${script_dir}starter_ivar_consensus.v04.sh" $freq $qual $depth
