@@ -34,10 +34,9 @@ conda install -c bioconda mtbseq
 conda deactivate
 ```
 
-Follow instruction from here: https://github.com/ngs-fzb/MTBseq_source to activate GATK
-may need to rename gatk to gatk3 and use gatk-register in the environments /bin directory.  
+For more information on MTBseq click here: https://github.com/ngs-fzb/MTBseq_source
 
-copy reference fasta and annotation to the mtbseq ref directory
+Copy reference fasta and annotation to the mtbseq /ref/ directory!
 
 ### iVar
 ```
