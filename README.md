@@ -36,7 +36,7 @@ conda deactivate
 
 For more information on MTBseq click here: https://github.com/ngs-fzb/MTBseq_source
 
-Copy reference fasta and annotation to the mtbseq /ref/ directory!
+Copy reference .fasta and _genes.txt annotation from the SARSCOV2seq/Ref directory to the mtbseq /ref/ directory!
 
 ### iVar
 ```
@@ -46,12 +46,12 @@ conda install -c bioconda ivar
 conda deactivate
 ```
 
-### Open the sarscov2seq file in a text editor and set paths to match the actual location of the "Ref" and "Scripts" directory on your computer
+### Open the sarscov2seq file in a text editor and set paths to match the actual location of the "Ref" and "Scripts" directory on your computer. Default ARTIC amplicon set is v4.1.
 
 # Usage
 Fastq files need to be in the format required by MTBseq please read the [MANUAL.md](https://github.com/ngs-fzb/MTBseq_source/blob/master/MANUAL.md).
 
-Change to the directory containing your fastq files, copy sarscov2seq to the directory and change parameters as needed afterwards execute:
+Change to the directory containing your fastq files, copy sarscov2seq to the directory and change parameters as needed, afterwards execute:
 ```
 sarscov2seq
 ```
